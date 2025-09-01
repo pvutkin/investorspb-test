@@ -1,0 +1,88 @@
+Структура проекта
+
+startup_platform/
+├── manage.py
+├── startup_platform/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── users/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── startups/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── investors/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── messaging/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── moderation/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── payments/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── admin.py
+├── requirements.txt
+└── README.md
+
+Структура фронтенд проекта.
+
+frontend/
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   ├── LoginModal.jsx
+│   │   ├── RegisterModal.jsx
+│   │   ├── StartupCard.jsx
+│   │   ├── InvestorCard.jsx
+│   │   ├── SearchBar.jsx
+│   │   └── MessageChat.jsx
+│   ├── pages/
+│   │   ├── HomePage.jsx
+│   │   ├── StartupListPage.jsx
+│   │   ├── InvestorListPage.jsx
+│   │   ├── StartupDetailPage.jsx
+│   │   ├── InvestorDetailPage.jsx
+│   │   ├── ProfilePage.jsx
+│   │   └── ChatPage.jsx
+│   ├── services/
+│   │   └── api.js
+│   ├── utils/
+│   │   └── auth.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── styles/
+│       └── global.css
+├── package.json
+└── vite.config.js

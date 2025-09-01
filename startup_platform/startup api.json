@@ -1,0 +1,141 @@
+{
+  "info": {
+    "name": "Startup API",
+    "description": "API для управления пользователями и стартапами",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Регистрация пользователя",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"testpass\",\n    \"user_type\": \"startup\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/users/register/",
+          "host": ["{{base_url}}"],
+          "path": ["users", "register", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Вход пользователя",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpass\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/users/login/",
+          "host": ["{{base_url}}"],
+          "path": ["users", "login", ""]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Сохраняем токен доступа",
+              "if (pm.response.code === 200) {",
+              "    var jsonData = pm.response.json();",
+              "    pm.collectionVariables.set(\"access_token\", jsonData.access);",
+              "    pm.collectionVariables.set(\"refresh_token\", jsonData.refresh);",
+              "    console.log(\"Токен сохранен: \" + jsonData.access);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "response": []
+    },
+    {
+      "name": "Получение списка стартапов",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/startups/",
+          "host": ["{{base_url}}"],
+          "path": ["startups", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Создание стартапа",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Test Startup\",\n    \"description\": \"Test description\",\n    \"stage\": \"idea\",\n    \"industry\": \"Tech\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/startups/",
+          "host": ["{{base_url}}"],
+          "path": ["startups", ""]
+        }
+      },
+      "response": []
+    }
+  ]
+}

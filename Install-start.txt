@@ -1,0 +1,372 @@
+🚀 Полное руководство по установке и запуску проекта
+
+📋 Предварительные требования
+
+Перед началом убедитесь, что на вашей системе установлены:
+
+- **Python 3.8+** (рекомендуется 3.10+)
+- **Node.js 14+** (рекомендуется LTS версия)
+- **PostgreSQL 12+**
+- **Docker и Docker Compose** (для контейнеризованного развёртывания)
+- **Git** (для клонирования репозитория)
+
+🔍 Проверка версий
+
+```bash
+python --version
+node --version
+npm --version
+docker --version
+docker-compose --version
+```
+
+---
+
+⚙️ 1. Настройка бэкенда (Django)
+
+1.1. Клонирование и настройка проекта
+
+```bash
+# Клонирование репозитория (если необходимо)
+git clone <your-repo-url>
+cd your-project
+
+# Создание виртуального окружения
+python -m venv venv
+
+# Активация (Linux/MacOS)
+source venv/bin/activate
+
+# Активация (Windows)
+venv\Scripts\activate
+```
+
+1.2. Установка зависимостей
+
+```bash
+# Обновление pip
+pip install --upgrade pip
+
+# Установка зависимостей
+pip install -r requirements.txt
+
+# Для разработки (если есть отдельный файл)
+pip install -r requirements-dev.txt
+```
+
+1.3. Настройка базы данных PostgreSQL
+
+```bash
+# Подключение к PostgreSQL
+sudo -u postgres psql
+
+# Создание базы данных и пользователя
+CREATE DATABASE your_database_name;
+CREATE USER your_username WITH PASSWORD 'your_strong_password';
+ALTER ROLE your_username SET client_encoding TO 'utf8';
+ALTER ROLE your_username SET default_transaction_isolation TO 'read committed';
+ALTER ROLE your_username SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE your_database_name TO your_username;
+\q
+```
+
+1.4. Настройка переменных окружения
+
+Создайте файл `.env` в корневой директории бэкенда:
+
+```env
+# Дев режим
+DEBUG=True
+
+# Безопасность (сгенерируйте новый ключ!)
+SECRET_KEY=your-unique-django-secret-key-here
+
+# База данных
+DATABASE_URL=postgresql://your_username:your_strong_password@localhost:5432/your_database_name
+
+# CORS настройки (для разработки)
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+
+# Дополнительные настройки (опционально)
+ALLOWED_HOSTS=localhost,127.0.0.1
+TIME_ZONE=Europe/Moscow
+```
+
+🔒 Важно: Для генерации SECRET_KEY используйте:
+```bash
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+1.5. Миграции и запуск
+
+```bash
+# Применение миграций
+python manage.py migrate
+
+# Создание суперпользователя
+python manage.py createsuperuser
+
+# Загрузка фикстур (если есть)
+python manage.py loaddata fixtures/*.json
+
+# Запуск сервера разработки
+python manage.py runserver
+```
+
+---
+
+⚡ 2. Настройка фронтенда (React + Vite)
+
+2.1. Установка зависимостей
+
+```bash
+cd frontend
+
+# Установка зависимостей
+npm install
+
+# Или с использованием yarn
+yarn install
+```
+
+2.2. Настройка окружения
+
+Создайте файл `.env` в папке фронтенда:
+
+```env
+# API URL
+VITE_API_URL=http://localhost:8000
+
+# Режим разработки
+VITE_APP_ENV=development
+
+# Дополнительные настройки (опционально)
+VITE_APP_NAME=My App
+```
+
+2.3. Запуск разработки
+
+```bash
+# Запуск dev сервера
+npm run dev
+
+🤖 3. Telegram бот
+
+3.1. Настройка окружения
+
+```bash
+cd telegram-bot
+```
+
+Создайте файл `.env`:
+
+```env
+# Токен бота от @BotFather
+BOT_TOKEN=your-telegram-bot-token-here
+
+# API URL бэкенда
+API_URL=http://localhost:8000/api/
+
+# Режим отладки
+DEBUG=True
+
+# Настройки Webhook (если используется)
+WEBHOOK_URL=https://yourdomain.com/webhook
+WEBHOOK_PORT=8443
+```
+
+3.2. Запуск бота
+
+```bash
+# Активируйте виртуальное окружение (если ещё не активировано)
+source ../venv/bin/activate  # Linux/MacOS
+# или
+../venv/Scripts/activate     # Windows
+
+# Установите зависимости бота
+pip install -r requirements.txt
+
+# Запуск в режиме polling
+python bot.py
+
+# Или для production (зависит от реализации)
+python -m bot
+```
+
+---
+
+🐳 4. Docker развертывание
+
+4.1. Настройка переменных окружения
+
+Создайте файл `.env` в корне проекта:
+
+```env
+# PostgreSQL
+POSTGRES_DB=your_production_db
+POSTGRES_USER=your_production_user
+POSTGRES_PASSWORD=your_strong_production_password
+
+# Django
+SECRET_KEY=your-production-secret-key-must-be-strong
+DEBUG=0
+ALLOWED_HOSTS=localhost,127.0.0.1,.yourdomain.com
+DATABASE_URL=postgresql://your_production_user:your_strong_production_password@db:5432/your_production_db
+
+# Бот
+BOT_TOKEN=your-production-bot-token
+API_URL=http://backend:8000/api/
+
+# Фронтенд
+VITE_API_URL=http://localhost:8000
+```
+
+4.2. Запуск контейнеров
+
+```bash
+# Сборка и запуск всех сервисов
+docker-compose up -d --build
+
+# Запуск только определённых сервисов
+docker-compose up -d backend frontend db
+
+# Просмотр логов
+docker-compose logs -f
+docker-compose logs -f backend
+docker-compose logs -f frontend
+
+# Остановка
+docker-compose down
+
+# Остановка с удалением volumes
+docker-compose down -v
+
+# Пересборка конкретного сервиса
+docker-compose up -d --build backend
+```
+
+4.3. Миграции в Docker
+
+```bash
+# Выполнение миграций
+docker-compose exec backend python manage.py migrate
+
+# Создание суперпользователя
+docker-compose exec backend python manage.py createsuperuser
+
+# Сборка статических файлов
+docker-compose exec backend python manage.py collectstatic --noinput
+```
+
+---
+
+📊 5. Дополнительные команды
+
+Для бэкенда:
+
+```bash
+# Создание миграций
+python manage.py makemigrations
+
+# Проверка миграций
+python manage.py makemigrations --dry-run --verbosity 3
+
+# Запуск тестов
+python manage.py test
+python manage.py test --verbosity=2
+python manage.py test app_name.tests.TestClass
+
+# Сбор статики
+python manage.py collectstatic
+
+# Shell с автозагрузкой моделей
+python manage.py shell_plus
+
+# Проверка безопасности
+python manage.py check --deploy
+
+# Создание фикстур
+python manage.py dumpdata app.model --indent=2 > fixtures/file.json
+```
+
+Для фронтенда:
+
+```bash
+# Сборка для production
+npm run build
+
+# Preview production сборки
+npm run preview
+
+# Анализ размера бандла
+npm run build -- --profile
+npx vite-bundle-visualizer
+
+# Проверка типов (если используется TypeScript)
+npm run type-check
+
+# Линтинг
+npm run lint
+npm run lint -- --fix
+```
+
+---
+
+🔍 6. Проверка работоспособности
+
+После запуска проверьте доступность сервисов:
+
+| Сервис | URL | Ожидаемый результат |
+|--------|-----|---------------------|
+| Бэкенд | http://localhost:8000/admin | Страница админки Django |
+| Бэкенд API | http://localhost:8000/api/ | JSON ответ API |
+| Фронтенд | http://localhost:3000 | Интерфейс приложения |
+| Документация API | http://localhost:8000/api/docs/ | Swagger/Redoc (если подключено) |
+
+### Проверка здоровья системы:
+
+```bash
+# Проверка бэкенда
+curl http://localhost:8000/api/health/
+
+# Проверка фронтенда
+curl http://localhost:3000
+
+# Проверка базы данных
+docker-compose exec db psql -U your_user -d your_db -c "SELECT version();"
+```
+
+🚨 7. Устранение проблем
+
+### Проблема: Ошибка подключения к базе данных
+**Решение:** Проверьте правильность DATABASE_URL и что PostgreSQL запущен
+
+### Проблема: CORS ошибки
+**Решение:** Убедитесь, что CORS настроен правильно в settings.py
+
+### Проблема: Модули не найдены
+**Решение:** Переустановите зависимости и активируйте виртуальное окружение
+
+### Проблема: Порт уже занят
+**Решение:** Используйте другой порт или остановите занявший процесс
+
+```bash
+# Поиск занятого порта
+lsof -i :8000
+netstat -tulpn | grep :8000
+
+# Принудительное освобождение порта (осторожно!)
+kill -9 <PID>
+```
+
+---
+
+📝 8. Next Steps
+
+После успешного запуска:
+
+1. ✅ Настройте CI/CD пайплайн
+2. ✅ Настройте мониторинг и логирование
+3. ✅ Настройте бэкапы базы данных
+4. ✅ Настройте SSL сертификаты
+5. ✅ Протестируйте деплой на staging окружении

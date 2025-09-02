@@ -1,0 +1,117 @@
+.
+├── admin.py
+├── backend
+│   ├── investors
+│   │   ├── apps.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── manage.py
+│   ├── messaging
+│   │   ├── apps.py
+│   │   ├── consumers.py
+│   │   ├── routing.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── moderation
+│   │   ├── apps.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── notifications
+│   │   ├── apps.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── payments
+│   │   ├── apps.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── requirements.txt
+│   ├── startup api.json
+│   ├── startup_platform
+│   │   ├── asgi.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── startups
+│   │   ├── apps.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls_industries.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   └── users
+│       ├── apps.py
+│       ├── serializers.py
+│       ├── tests.py
+│       ├── urls.py
+│       └── views.py
+├── backend.txt
+├── docker-compose.yml
+├── Dockerfile
+├── frontend
+│   ├── package.json
+│   ├── public
+│   │   └── index.html
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── components
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Header.jsx
+│   │   │   ├── ImageUploader.jsx
+│   │   │   ├── InvestorCard.jsx
+│   │   │   ├── LoginModal.jsx
+│   │   │   ├── MessageChat.jsx
+│   │   │   ├── OnlineIndicator.jsx
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   ├── RegisterModal.jsx
+│   │   │   ├── ReportModal.jsx
+│   │   │   ├── ReviewModal.jsx
+│   │   │   ├── RichTextEditor.jsx
+│   │   │   ├── SearchBar.jsx
+│   │   │   ├── StartupCard.jsx
+│   │   │   ├── SubscriptionPlans.jsx
+│   │   │   └── VerificationBadge.jsx
+│   │   ├── contexts
+│   │   │   └── AuthContext.jsx
+│   │   ├── hooks
+│   │   │   ├── useLocalStorage.js
+│   │   │   ├── usePagination.js
+│   │   │   └── useWebSocket.js
+│   │   ├── main.jsx
+│   │   ├── pages
+│   │   │   ├── ChatPage.jsx
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── InvestorDetailPage.jsx
+│   │   │   ├── InvestorListPage.jsx
+│   │   │   ├── ProfilePage.jsx
+│   │   │   ├── SearchPage.jsx
+│   │   │   ├── SettingsPage.jsx
+│   │   │   ├── StartupDetailPage.jsx
+│   │   │   └── StartupListPage.jsx
+│   │   ├── services
+│   │   │   └── api.js
+│   │   ├── styles
+│   │   │   └── global.css
+│   │   └── utils
+│   │       ├── auth.js
+│   │       └── validation.js
+│   └── vite.config.js
+├── models.py
+├── nginx.conf
+├── Readme.md
+├── telegram-bot
+│   ├── bot.py
+│   ├── config.py
+│   ├── database.py
+│   ├── handlers.py
+│   ├── models.py
+│   ├── README.md
+│   └── requirements.txt
+└── Структура.txt

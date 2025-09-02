@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { startupAPI } from '../services/api';
+import { startupsAPI } from '../services/api';
 import StartupCard from '../components/StartupCard';
 import SearchBar from '../components/SearchBar';
 
@@ -10,7 +10,7 @@ const StartupListPage = () => {
     useEffect(() => {
         const fetchStartups = async () => {
             try {
-                const data = await startupAPI.getAll();
+                const data = await startupsAPI.getAll();
                 setStartups(data);
                 setLoading(false);
             } catch (err) {

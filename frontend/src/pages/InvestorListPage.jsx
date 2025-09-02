@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { investorAPI } from '../services/api';
+import { investorsAPI } from '../services/api';
 import InvestorCard from '../components/InvestorCard';
 import SearchBar from '../components/SearchBar';
 
@@ -10,7 +10,7 @@ const InvestorListPage = () => {
     useEffect(() => {
         const fetchInvestors = async () => {
             try {
-                const data = await investorAPI.getAll();
+                const data = await investorsAPI.getAll();
                 setInvestors(data);
                 setLoading(false);
             } catch (err) {
